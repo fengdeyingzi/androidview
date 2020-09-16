@@ -57,17 +57,10 @@ class _LinearLayoutState extends State<LinearLayout>{
     Alignment alignment = Alignment.topLeft;
     double hor_gravity = -1.0;
     double ver_gravity = -1.0;
-    int orientation = LinearLayout.HORIZONTAL;
-    bool isLinearLayout = true;
-    double par_width = MATCH_PARENT;
-    double par_height = MATCH_PARENT;
-    if(LayoutOrientation.of(context) != null){
-      orientation = LayoutOrientation.of(context).orientation;
-      isLinearLayout = LayoutOrientation.of(context).isLinearLayout;
-      par_width = LayoutOrientation.of(context).layout_width;
-      par_height = LayoutOrientation.of(context).layout_height;
-    }
-
+    final int orientation = LayoutOrientation.of(context).orientation;
+    final bool isLinearLayout = LayoutOrientation.of(context).isLinearLayout;
+    final double par_width = LayoutOrientation.of(context).layout_width;
+    final double par_height = LayoutOrientation.of(context).layout_height;
     MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start;
     CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.start;
     if(widget.layout_width == null){
@@ -127,18 +120,21 @@ class _LinearLayoutState extends State<LinearLayout>{
     }
     alignment = Alignment(hor_gravity,ver_gravity);
     if(widget.orientation == LinearLayout.HORIZONTAL){
-      if (widget.gravity == Gravity.CENTER) {
+      if ((widget.gravity & Gravity.CENTER)==Gravity.CENTER) {
 //      textAlign = TextAlign.center;
         mainAxisAlignment = MainAxisAlignment.center;
         crossAxisAlignment = CrossAxisAlignment.center;
       }
-      if (widget.gravity == Gravity.RIGHT) {
+      if ((widget.gravity & Gravity.RIGHT)==Gravity.RIGHT) {
 //      textAlign = TextAlign.right;
         mainAxisAlignment = MainAxisAlignment.end;
       }
-      if (widget.gravity == Gravity.LEFT) {
+      if ((widget.gravity & Gravity.LEFT)==Gravity.LEFT) {
 //      textAlign = TextAlign.left;
         mainAxisAlignment = MainAxisAlignment.start;
+      }
+      if((widget.gravity&Gravity.BOTTOM) == Gravity.BOTTOM){
+        crossAxisAlignment = CrossAxisAlignment.end;
       }
       layout =  Row(
         mainAxisAlignment: mainAxisAlignment,
@@ -148,16 +144,16 @@ class _LinearLayoutState extends State<LinearLayout>{
       );
     }
     else{
-      if (widget.gravity == Gravity.CENTER) {
+      if ((widget.gravity & Gravity.CENTER)==Gravity.CENTER) {
 //      textAlign = TextAlign.center;
         mainAxisAlignment = MainAxisAlignment.center;
         crossAxisAlignment = CrossAxisAlignment.center;
       }
-      if (widget.gravity == Gravity.RIGHT) {
+      if ((widget.gravity & Gravity.RIGHT)==Gravity.RIGHT) {
 //      textAlign = TextAlign.right;
         crossAxisAlignment = CrossAxisAlignment.end;
       }
-      if (widget.gravity == Gravity.LEFT) {
+      if ((widget.gravity & Gravity.LEFT)==Gravity.LEFT) {
 //      textAlign = TextAlign.left;
         crossAxisAlignment = CrossAxisAlignment.start;
       }
@@ -304,7 +300,6 @@ class _LinearLayoutState extends State<LinearLayout>{
         layout_height: widget.layout_height,
         child: layout,
     );
-
     layout = ViewGroup(
       layout_width: widget.layout_width,
       layout_height: widget.layout_height,
@@ -321,15 +316,6 @@ class _LinearLayoutState extends State<LinearLayout>{
       backgroundColor: widget.backgroundColor,
       child: layout,
     );
-//    if(LayoutOrientation.of(context) == null){
-//      layout = LayoutOrientation(
-//        isLinearLayout: true,
-//        orientation: widget.orientation,
-//        layout_width: widget.layout_width,
-//        layout_height: widget.layout_height,
-//        child: layout,
-//      );
-//    }
     return layout;
   }
 
