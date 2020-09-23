@@ -54,6 +54,7 @@ class EditText extends StatelessWidget {
       this.minWidget,
       this.maxWidget,
       this.minLines,
+        this.hint,
       this.hintTextColor});
 
   @override
@@ -64,6 +65,7 @@ class EditText extends StatelessWidget {
         color: textColor,
         textBaseline: TextBaseline.alphabetic, //用于提示文字对齐
       ),
+      scrollPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
       decoration: InputDecoration(
         isDense: true, //重要 用于编辑框对齐
         contentPadding: EdgeInsets.zero,
