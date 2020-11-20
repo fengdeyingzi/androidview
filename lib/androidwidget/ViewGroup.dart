@@ -37,7 +37,7 @@ class ViewGroup extends StatelessWidget{
     final bool isLinearLayout = LayoutOrientation.of(context).isLinearLayout??false;
     final double par_width = LayoutOrientation.of(context).layout_width;
     final double par_height = LayoutOrientation.of(context).layout_height;
-    print("orientation = ${orientation} layout_width = ${par_width} layout_height = ${par_height}");
+    // print("orientation = ${orientation} layout_width = ${par_width} layout_height = ${par_height}");
     if(paddingLeft == null){
       paddingLeft = 0;
     }
